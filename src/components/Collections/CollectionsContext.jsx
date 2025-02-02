@@ -4,7 +4,7 @@ import React, { createContext, useContext, useState } from 'react';
 const CollectionsContext = createContext();
 
 export const CollectionsProvider = ({ children }) => {
-  const collections = useState([
+  const [collections,setCollections] = useState([ // eslint-disable-line no-unused-vars
     {
       id: 1,
       name: "Romance",
@@ -45,10 +45,10 @@ export const CollectionsProvider = ({ children }) => {
         "Hypoallergenic material"
       ]
     }
-  ]);
+  ]);  // eslint-disable-line no-unused-vars
 
-  const loading = useState(false);
-  const error = useState(null);
+  const [loading, setLoading] = useState(false); // eslint-disable-line no-unused-vars
+  const [error, setError] = useState(null);  // eslint-disable-line no-unused-vars
 
   // Existing methods
   const filterCollections = (filter) => {
