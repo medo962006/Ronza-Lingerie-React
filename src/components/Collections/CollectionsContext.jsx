@@ -23,7 +23,8 @@ export const CollectionsProvider = ({ children }) => {
         "Made with premium French lace",
         "Adjustable straps",
         "Delicate embroidery details"
-      ]
+      ],
+      image: "https://images-cdn.ubuy.co.in/662d83beb9fc77250c79ef08-sexy-lingerie-for-women-naughty-3-piece.jpg",
     },
     {
       id: 2,
@@ -43,7 +44,8 @@ export const CollectionsProvider = ({ children }) => {
         "100% pure mulberry silk",
         "Temperature regulating",
         "Hypoallergenic material"
-      ]
+      ],
+      image: "https://cdn-img.prettylittlething.com/0/8/a/d/08adf8a1ec7877874e558f4626e5bbeb397d4e33_cmw0505_5.jpg?imwidth=600"
     }
   ]);  // eslint-disable-line no-unused-vars
 
