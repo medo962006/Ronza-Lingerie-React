@@ -1,0 +1,279 @@
+// src/components/Cart/_CartSidebar.scss
+@import '../../styles/variables';
+
+.cart-toggle {
+  position: fixed;
+  right: $spacing-lg;
+  bottom: $spacing-lg;
+  background-color: $color-primary;
+  color: $color-white;
+  border: none;
+  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba($color-black, 0.15);
+  transition: $transition-base;
+  z-index: 100;
+
+  &:hover {
+    transform: scale(1.05);
+    background-color: darken($color-primary, 5%);
+  }
+
+  .cart-count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: $color-error;
+    color: $color-white;
+    font-size: 0.75rem;
+    font-weight: 600;
+    min-width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 6px;
+  }
+}
+
+.cart-sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba($color-black, 0.5);
+  z-index: 998;
+  backdrop-filter: blur(4px);
+}
+
+.cart-sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  max-width: 400px;
+  height: 100vh;
+  background-color: $color-white;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  box-shadow: -4px 0 24px rgba($color-black, 0.1);
+
+  .cart-sidebar-header {
+    padding: $spacing-lg;
+    border-bottom: 1px solid $color-gray-200;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .close-button {
+      background: none;
+      border: none;
+      color: $color-gray-600;
+      cursor: pointer;
+      padding: $spacing-xs;
+      border-radius: $border-radius-sm;
+      transition: $transition-base;
+
+      &:hover {
+        background-color: $color-gray-100;
+        color: $color-gray-900;
+      }
+    }
+  }
+
+  .cart-sidebar-items {
+    flex: 1;
+    overflow-y: auto;
+    padding: $spacing-lg;
+
+    .empty-cart {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: $spacing-lg;
+      color: $color-gray-600;
+      text-align: center;
+
+      .continue-shopping {
+        background: none;
+        border: 1px solid $color-primary;
+        color: $color-primary;
+        padding: $spacing-sm $spacing-lg;
+        border-radius: $border-radius-md;
+        font-weight: 500;
+        cursor: pointer;
+        transition: $transition-base;
+
+        &:hover {
+          background-color: $color-primary;
+          color: $color-white;
+        }
+      }
+    }
+
+    .cart-item {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: $spacing-lg;
+      padding: $spacing-lg;
+      border-bottom: 1px solid $color-gray-200;
+
+      .item-image {
+        img {
+          width: 80px;
+          height: 100px;
+          object-fit: cover;
+          border-radius: $border-radius-md;
+        }
+      }
+
+      .item-details {
+        h3 {
+          margin: 0 0 $spacing-xs;
+          font-size: 1rem;
+          font-weight: 500;
+        }
+
+        .item-options {
+          color: $color-gray-600;
+          font-size: 0.875rem;
+          margin: 0 0 $spacing-xs;
+        }
+
+        .item-price {
+          font-weight: 600;
+          margin: 0 0 $spacing-sm;
+          color: $color-gray-900;
+        }
+
+        .item-controls {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: $spacing-sm;
+            border: 1px solid $color-gray-200;
+            border-radius: $border-radius-md;
+            padding: $spacing-xs;
+
+            button {
+              background: none;
+              border: none;
+              color: $color-gray-600;
+              cursor: pointer;
+              padding: $spacing-xs;
+              border-radius: $border-radius-sm;
+              transition: $transition-base;
+
+              &:hover:not(:disabled) {
+                background-color: $color-gray-100;
+                color: $color-gray-900;
+              }
+
+              &:disabled {
+                opacity: 0.5;
+                cursor: not-allowed;
+              }
+            }
+
+            span {
+              min-width: 24px;
+              text-align: center;
+              font-weight: 500;
+            }
+          }
+
+          .remove-button {
+            background: none;
+            border: none;
+            color: $color-gray-400;
+            cursor: pointer;
+            padding: $spacing-xs;
+            border-radius: $border-radius-sm;
+            transition: $transition-base;
+
+            &:hover {
+              color: $color-error;
+              background-color: rgba($color-error, 0.1);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .cart-sidebar-footer {
+    border-top: 1px solid $color-gray-200;
+    padding: $spacing-lg;
+    background-color: $color-white;
+
+    .cart-summary {
+      margin-bottom: $spacing-lg;
+
+      .subtotal,
+      .shipping,
+      .total {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: $spacing-sm;
+
+        span:first-child {
+          color: $color-gray-600;
+        }
+
+        span:last-child {
+          font-weight: 500;
+        }
+      }
+
+      .total {
+        margin-top: $spacing-md;
+        padding-top: $spacing-md;
+        border-top: 1px solid $color-gray-200;
+        font-size: 1.125rem;
+
+        span {
+          font-weight: 600 !important;
+          color: $color-gray-900 !important;
+        }
+      }
+    }
+
+    .checkout-button {
+      width: 100%;
+      padding: $spacing-md;
+      background-color: $color-primary;
+      color: $color-white;
+      border: none;
+      border-radius: $border-radius-md;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: $transition-base;
+
+      &:hover {
+        background-color: darken($color-primary, 5%);
+      }
+    }
+  }
+}

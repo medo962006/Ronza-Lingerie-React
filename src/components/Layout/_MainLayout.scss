@@ -1,0 +1,18 @@
+// src/components/Layout/MainLayout.scss
+.app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  .content-container {
+    flex: 1;
+    padding: 2rem 5%;
+    max-width: 1440px;
+    margin: 0 auto;
+    width: 100%;
+    
+    @media (max-width: 768px) {
+      padding: 1.5rem;
+    }
+  }

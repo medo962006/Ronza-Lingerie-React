@@ -1,0 +1,25 @@
+// src/styles/_mixins.scss
+@use "./variables" as vars;
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  @mixin respond-to($breakpoint) {
+    @if map-has-key(vars.$breakpoints, $breakpoint) {
+      @media (max-width: map-get(vars.$breakpoints, $breakpoint)) {
+        @content;
+      }
+    } @else {
+      @warn "Unknown breakpoint `#{$breakpoint}`";
+    }
+  }
+  
+  @mixin hover-effect {
+    transition: all 0.3s ease;
+    &:hover {
+      transform: translateY(-2px);
+      filter: brightness(110%);
+    }
+  }
