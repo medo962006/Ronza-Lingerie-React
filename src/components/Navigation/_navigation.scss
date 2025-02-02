@@ -271,3 +271,59 @@
     .logo { font-size: 1.8rem; }
   }
 }
+.search-container {
+  position: relative;
+  margin-right: vars.$spacing-sm;
+  width: 0; // Initially hidden
+  overflow: hidden;
+  transition: width 0.3s ease-in-out;
+
+  &.active {
+    width: 200px; // Adjust width when active
+    @media (min-width: vars.$breakpoint-md) {
+      width: 250px; // Wider on larger screens
+    }
+  }
+
+  &.inactive {
+    width: 0;
+  }
+
+  .search-input {
+    width: 100%;
+    padding: vars.$spacing-xs vars.$spacing-sm;
+    border: 1px solid vars.$color-gray-300;
+    border-radius: vars.$border-radius-sm;
+    font-size: 1rem;
+    font-family: vars.$font-secondary;
+    transition: border-color vars.$transition-base;
+
+    &:focus {
+      outline: none;
+      border-color: vars.$color-primary;
+      box-shadow: 0 0 0 2px rgba(vars.$color-primary, 0.2);
+    }
+  }
+
+  .search-clear-button {
+    position: absolute;
+    top: 50%;
+    right: vars.$spacing-sm;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: vars.$color-gray-500;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: opacity vars.$transition-base, color vars.$transition-base;
+
+    &:hover {
+      opacity: 1;
+      color: vars.$color-primary;
+    }
+  }
+}
+
+.search-trigger {
+  // Style for the search icon button (already might have some styles from .nav-action)
+}

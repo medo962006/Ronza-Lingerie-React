@@ -11,9 +11,7 @@ export const CollectionsProvider = ({ children }) => {
       category: "lingerie",
       price: 129.99,
       images: [
-        "https://images-cdn.ubuy.co.in/662d83beb9fc77250c79ef08-sexy-lingerie-for-women-naughty-3-piece.jpg",
-        "https://images-cdn.ubuy.co.in/662d83beb9fc77250c79ef08-sexy-lingerie-for-women-naughty-3-piece.jpg",
-        "https://images-cdn.ubuy.co.in/662d83beb9fc77250c79ef08-sexy-lingerie-for-women-naughty-3-piece.jpg"
+        "https://i.imgur.com/RIJc6d3.jpeg"
       ],
       isNew: true,
       description: "Elegant black lace collection with intricate details",
@@ -24,7 +22,7 @@ export const CollectionsProvider = ({ children }) => {
         "Adjustable straps",
         "Delicate embroidery details"
       ],
-      image: "https://images-cdn.ubuy.co.in/662d83beb9fc77250c79ef08-sexy-lingerie-for-women-naughty-3-piece.jpg",
+      image: "https://i.imgur.com/RIJc6d3.jpeg",
     },
     {
       id: 2,
@@ -32,9 +30,8 @@ export const CollectionsProvider = ({ children }) => {
       category: "sleepwear",
       price: 189.99,
       images: [
-        "https://cdn-img.prettylittlething.com/0/8/a/d/08adf8a1ec7877874e558f4626e5bbeb397d4e33_cmw0505_5.jpg?imwidth=600",
-        "https://sinderella.in/cdn/shop/products/journi-lace-lingerie-931371.jpg?v=1725306583&width=1000",
-        "https://cdn-img.prettylittlething.com/0/8/a/d/08adf8a1ec7877874e558f4626e5bbeb397d4e33_cmw0505_5.jpg?imwidth=600"
+        "https://i.imgur.com/TMqKRjG.jpeg",
+        "https://i.imgur.com/k3EP3Ap.jpeg"
       ],
       isNew: true,
       description: "Luxurious silk sleepwear in soft pastel shades",
@@ -45,7 +42,7 @@ export const CollectionsProvider = ({ children }) => {
         "Temperature regulating",
         "Hypoallergenic material"
       ],
-      image: "https://cdn-img.prettylittlething.com/0/8/a/d/08adf8a1ec7877874e558f4626e5bbeb397d4e33_cmw0505_5.jpg?imwidth=600"
+      image: "https://i.imgur.com/iSLYwXm.jpeg"
     }
   ]);  // eslint-disable-line no-unused-vars
 
@@ -65,7 +62,23 @@ export const CollectionsProvider = ({ children }) => {
       if (sortBy === 'newest') return b.id - a.id;
       return 0;
     });
+    
   };
+  const searchCollections = (query) => {
+    if (!query) {
+      return collections; // Return all collections if query is empty
+    }
+    const lowerCaseQuery = query.toLowerCase();
+    return collections.filter(collection => {
+      return (
+        collection.name.toLowerCase().includes(lowerCaseQuery) ||
+        collection.description.toLowerCase().includes(lowerCaseQuery) ||
+        collection.details.some(detail => detail.toLowerCase().includes(lowerCaseQuery)) // Search in details array too
+        // Add more fields to search if needed (e.g., category, colors, sizes)
+      );
+    });
+  };
+  
 
   // New method to get a single collection
   const getCollection = (id) => {
@@ -79,7 +92,8 @@ export const CollectionsProvider = ({ children }) => {
       error,
       filterCollections,
       sortCollections,
-      getCollection
+      getCollection,
+      searchCollections // Add searchCollections to the context value
     }}>
       {children}
     </CollectionsContext.Provider>

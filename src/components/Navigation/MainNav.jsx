@@ -1,24 +1,47 @@
 // src/components/Navigation/MainNav.jsx
 import React, { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { FiHeart, FiShoppingBag, FiUser, FiSearch } from 'react-icons/fi';
+import { FiHeart, FiShoppingBag, FiUser, FiSearch, FiX } from 'react-icons/fi'; // Import FiX for clear button
 import MobileMenu from './MobileMenu';
-import './_navigation.scss'; // Correct relative path
-import { useCart } from '../../Context/CartContext'; // Correct import path
-import { useWishlist } from '../../Context/WishlistContext'; // Correct import path
-
-
+import './_navigation.scss';
+import { useCart } from '../../Context/CartContext';
+import { useWishlist } from '../../Context/WishlistContext';
+import { motion } from 'framer-motion';
 const MainNav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
-  const { getCartCount, setIsCartOpen } = useCart(); // Get cart context functions
-  const { getWishlistCount, setIsWishlistOpen: setWishlistSidebarOpen } = useWishlist(); // Get wishlist context functions
+  const { getCartCount, setIsCartOpen } = useCart();
+  const { getWishlistCount, setIsWishlistOpen: setWishlistSidebarOpen } = useWishlist();
+
+  const [searchQuery, setSearchQuery] = useState(''); // State for search query
+  const [isSearchActive, setIsSearchActive] = useState(false); // State to control search input visibility
 
   useEffect(() => {
     const handleScroll = () => setHasScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const handleSearchToggle = () => {
+    setIsSearchActive(!isSearchActive);
+    if (!isSearchActive) { // If search is being opened, focus on input
+      setTimeout(() => document.getElementById('search-input').focus(), 0); // Focus after animation
+    } else {
+      setSearchQuery(''); // Clear query when closing search
+    }
+  };
+
+  const handleSearchInputChange = (e) => {
+    setSearchQuery(e.target.value);
+    // You can add debouncing here if you want to delay search while typing
+    // For now, we'll search on every input change (for simplicity)
+  };
+
+  const handleClearSearch = () => {
+    setSearchQuery('');
+    document.getElementById('search-input').focus(); // Refocus after clearing
+  };
+
 
   return (
     <>
@@ -50,7 +73,7 @@ const MainNav = () => {
                 to="/about"
                 className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
               >
-                Our Story
+                Our Sctory
               </NavLink>
               <div className="nav-item dropdown">
                 <span className="Support">Support</span>
@@ -64,12 +87,34 @@ const MainNav = () => {
           </div>
 
           <div className="nav-actions">
-            <button className="nav-action search-trigger">
+            <motion.div className="search-container" animate={isSearchActive ? "active" : "inactive"}>
+              <input
+                id="search-input"
+                type="text"
+                className="search-input"
+                placeholder="Search collections..."
+                value={searchQuery}
+                onChange={handleSearchInputChange}
+              />
+              {searchQuery && (
+                <motion.button
+                  className="search-clear-button"
+                  onClick={handleClearSearch}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  <FiX size={18} />
+                </motion.button>
+              )}
+            </motion.div>
+
+
+            <button className="nav-action search-trigger" onClick={handleSearchToggle}>
               <FiSearch size={20} />
             </button>
             <button
               className="nav-action"
-              onClick={() => setWishlistSidebarOpen(true)} // Open Wishlist Sidebar on click
+              onClick={() => setWishlistSidebarOpen(true)}
             >
               <FiHeart size={20} />
               {getWishlistCount() > 0 && (
@@ -78,7 +123,7 @@ const MainNav = () => {
             </button>
             <button
               className="nav-action"
-              onClick={() => setIsCartOpen(true)} // Open Cart Sidebar on click
+              onClick={() => setIsCartOpen(true)}
             >
               <FiShoppingBag size={20} />
               {getCartCount() > 0 && (
