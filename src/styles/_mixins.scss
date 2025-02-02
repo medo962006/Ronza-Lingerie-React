@@ -23,3 +23,44 @@
       filter: brightness(110%);
     }
   }
+// src/styles/_variables.scss (or src/styles/mixins.scss or src/index.scss - choose one and be consistent)
+
+// ... your existing variables (colors, fonts, breakpoints, spacing, transitions, borders) ...
+
+// Button Styles Mixin
+@mixin button-style {
+  display: inline-block; // Or block, depending on desired button behavior
+  padding: $spacing-sm $spacing-md; // Example padding, adjust as needed
+  font-family: $font-secondary; // Use secondary font for buttons, or $font-primary if preferred
+  font-size: 1rem; // Adjust font size as needed
+  font-weight: bold; // Or normal, based on your design
+  text-align: center;
+  text-decoration: none; // Remove default link underlines if used on <a> tags
+  cursor: pointer;
+  border: 2px solid $color-primary; // Border color using primary color variable
+  color: $color-primary; // Text color using primary color variable
+  background-color: transparent; // Or $color-white for a filled button initially
+  border-radius: $border-radius-md; // Border radius using variable
+  transition: $transition-base; // Base transition for smooth effects
+
+  &:hover {
+    background-color: $color-primary; // Hover background color
+    color: $color-white; // Hover text color
+    border-color: $color-primary; // Ensure border color is consistent on hover
+    // You can add other hover effects like scale, shadow, etc.
+  }
+
+  &:focus {
+    outline: none; // Remove default focus outline for better custom styling
+    box-shadow: 0 0 0 2px rgba($color-primary, 0.5); // Example focus ring using primary color
+  }
+
+  &:active {
+    transform: scale(0.98); // Slight scale down on click for visual feedback
+  }
+
+  &:disabled {
+    opacity: 0.6; // Indicate disabled state visually
+    cursor: not-allowed;
+  }
+}

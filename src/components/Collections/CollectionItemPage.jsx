@@ -23,18 +23,7 @@ const CollectionItemPage = () => {
     );
   }
 
-  const handleAddToCart = () => {
-    if (!selectedSize || !selectedColor) {
-      alert('Please select both size and color');
-      return;
-    }
-    // Add to cart logic here
-    console.log('Added to cart:', {
-      ...collection,
-      selectedSize,
-      selectedColor,
-    });
-  };
+  
 
   return (
     <motion.div 

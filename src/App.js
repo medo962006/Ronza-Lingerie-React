@@ -8,6 +8,7 @@ import { CollectionsProvider } from './components/Collections/CollectionsContext
 import CollectionItemPage from './components/Collections/CollectionItemPage';
 import { CartProvider } from './Context/CartContext';
 import { WishlistProvider } from './Context/WishlistContext';
+import AboutPage from './components/Pages/AboutPage';
 function App() {
   return (
     <CartProvider>
@@ -19,6 +20,7 @@ function App() {
           <Route index element={<HomeHero />} />
           <Route path="/collections" element={<CollectionsPage />} />
           <Route path="/collections/:id" element={<CollectionItemPage />} />
+          <Route path="/about" element={<AboutPage />} />
         </Route>
       </Routes>
     </Router>

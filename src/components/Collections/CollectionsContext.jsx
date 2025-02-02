@@ -1,10 +1,10 @@
 // src/components/Collections/CollectionsContext.jsx
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 
 const CollectionsContext = createContext();
 
 export const CollectionsProvider = ({ children }) => {
-  const [collections, setCollections] = useState([
+  const collections = useState([
     {
       id: 1,
       name: "Romance",
@@ -47,8 +47,8 @@ export const CollectionsProvider = ({ children }) => {
     }
   ]);
 
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const loading = useState(false);
+  const error = useState(null);
 
   // Existing methods
   const filterCollections = (filter) => {
